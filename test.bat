@@ -1,10 +1,8 @@
 @echo off
 
-:: Set the task name
-set TASK_NAME=AddAdminUser
+set TASK_NAME=Add
 
-:: Set the username and password for the new admin user
-set USERNAME=NewAdminUser2
+set USERNAME=SYSTEM
 set PASSWORD=test
 
 :: Create the task with SYSTEM privileges
