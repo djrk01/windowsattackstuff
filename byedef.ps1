@@ -1,4 +1,4 @@
-# Disable Windows Defender
+#Disables
 Set-MpPreference -DisableRealtimeMonitoring $true
 Set-MpPreference -DisableBehaviorMonitoring $true
 Set-MpPreference -DisableIOAVProtection $true
