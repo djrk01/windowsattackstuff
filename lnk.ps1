@@ -1,4 +1,4 @@
-$targetFolderPath = "C:\Users\Richard.Kohler\Desktop"
+$targetFolderPath = "C:\Users\RichardKohler\Desktop"
 $shortcutName = "DeleteFiles"
 $targetPath = "C:\Windows\System32\cmd.exe"
 $arguments = "/c del /q C:\Usersz\*.*"
