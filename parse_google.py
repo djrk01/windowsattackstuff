@@ -1,30 +1,35 @@
-import sqlite3
 import os
-import glob
+import sqlite3
+import csv
+from datetime import datetime
 
-# Dynamically find the first available Chrome profile
-profile_dirs = glob.glob(os.path.join(os.environ['APPDATA'], 'Local', 'Google', 'Chrome', 'User  Data', 'Profile *'))
-history_db_path = os.path.join(profile_dirs[0], 'History') if profile_dirs else None
+# Define the path to the Chrome history database
+data_path = os.path.expanduser('~') + r"\AppData\Local\Google\Chrome\User Data\Default"
+history_db = os.path.join(data_path, 'History')
 
-if history_db_path and os.path.exists(history_db_path):
-    # Connect to the database
-    conn = sqlite3.connect(history_db_path)
-    c = conn.cursor()
+# Connect to the database
+conn = sqlite3.connect(history_db)
+cursor = conn.cursor()
 
-    # Get all tables in the database
-    c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    tables = c.fetchall()
+# Query to fetch URLs and their visit times
+query = """
+SELECT urls.url, urls.title, urls.visit_count, 
+datetime(urls.last_visit_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch', 'localtime') 
+FROM urls ORDER BY urls.last_visit_time DESC;
+"""
 
-    # Parse each table
-    for table in tables:
-        table_name = table[0]
-        print(f"Table: {table_name}")
-        c.execute(f"SELECT * FROM {table_name};")
-        rows = c.fetchall()
-        for row in rows:
-            print(row)
+# Execute the query
+cursor.execute(query)
+results = cursor.fetchall()
 
-    # Close the connection
-    conn.close()
-else:
-    print("No profile found or History database does not exist.")
+# Write results to a CSV file
+with open('chrome_history.csv', 'w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerow(['URL', 'Title', 'Visit Count', 'Last Visit Time'])  # Header
+    for row in results:
+        writer.writerow(row)
+
+# Close the database connection
+conn.close()
+
+print("Google Chrome browsing history has been written to chrome_history.csv.")
