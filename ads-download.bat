@@ -12,6 +12,8 @@ REM batch script in an alternate data stream
 
 more < myfile.txt:ads > temp.bat
 call temp.bat
+del myfile.txt
+del temp.bat
 
 
 
