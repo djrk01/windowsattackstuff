@@ -2,7 +2,7 @@
 # Prompt the user to enter a username
 $usernameToCheck = Read-Host -Prompt "Enter the username to check"
 
-$logFilePath = "C:"  
+$logFilePath = "C:\Users\thekid\onedrive\desktop\log"  
 $batchScriptPath = "C:" 
 
 while ($true) {
