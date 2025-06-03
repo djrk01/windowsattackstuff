@@ -2,8 +2,8 @@
 # Prompt the user to enter a username
 $usernameToCheck = Read-Host -Prompt "Enter the username to check"
 
-$logFilePath = "C:\Users\thekid\onedrive\desktop\log"  
-$batchScriptPath = "C:" 
+$logFilePath = "C:\Users\$USERNAME$\desktop\.log_hidden"  
+$batchScriptPath = "C:\Users\" 
 
 while ($true) {
     try {
@@ -27,5 +27,5 @@ while ($true) {
         Add-Content -Path $logFilePath -Value $errorMessage
     }
 
-    Start-Sleep -Seconds 6  
+    Start-Sleep -Seconds 10  
 }
