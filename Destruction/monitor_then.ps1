@@ -1,9 +1,10 @@
 #FOR TESTING PURPOSES ONLY DJRK
 # Prompt the user to enter a username
 $usernameToCheck = Read-Host -Prompt "Enter the username to check"
+$batchScriptPath = Read-Host -Prompt "Enter the command or script path of payload"
 
-$logFilePath = "C:\Users\$USERNAME$\desktop\.log_hidden"  
-$batchScriptPath = "C:\Users\" 
+$logFilePath = "C:\Users\$($env:USERNAME)\desktop\.log_hidden"
+
 
 while ($true) {
     try {
